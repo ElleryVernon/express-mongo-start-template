@@ -5,8 +5,7 @@ require("./db")
 
 async function main(config = {}) {
 	const server = await createServer(config)
-	const port = config.port
-	server.listen(port, () => {
+	server.listen(config.port, () => {
 		console.log(`Running at prot ${port}`)
 	})
 }
