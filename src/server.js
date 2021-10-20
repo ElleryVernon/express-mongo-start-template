@@ -1,5 +1,4 @@
 const express = require("express")
-const csrf = require("csurf")
 const fs = require("fs")
 const hpp = require("hpp")
 const cors = require("cors")
@@ -8,9 +7,6 @@ const helmet = require("helmet")
 const https = require("https")
 const morgan = require("morgan")
 const cookieParser = require("cookie-parser")
-
-//* set save csrf token secret to use cookie
-const csrfProtect = csrf({ cookie: true })
 
 class Server {
 	constructor(config) {
@@ -48,7 +44,7 @@ class Server {
 
 	setRoute() {
 		//* server landing page
-		this.app.get("/", csrfProtect, (req, res) => {
+		this.app.get("/", (req, res) => {
 			// 3시간 유효
 			res.cookie("XSRF-TOKEN", req.csrfToken(), {
 				expires: new Date(Date.now() + 3 * 3600000),
